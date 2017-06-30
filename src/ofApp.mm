@@ -5,12 +5,12 @@ void ofApp::setup(){
     ofSetOrientation(OF_ORIENTATION_90_LEFT); //Set iOS to Orientation
     ofSetCircleResolution(80);
     ofSetBackgroundColor(40,40,40);
-    tweetFont.loadFont("OpenSansEmoji.ttf", 16, true, true);
+    mainFont.load("OpenSans-Bold.ttf", 64);
     
     // get data created twitter API
-    std::string url = "https://whispering-mesa-52741.herokuapp.com/twitter/search/love%20-hate%20-RT%20filter:native_video/en/52.4722208,13.3349867,10km";
+    std::string url = "https://whispering-mesa-52741.herokuapp.com/twitter/search/love%20-hate%20-RT%20filter:native_video/en/52.4722208,13.3349867,100km";
     
-    std::string hateurl = "https://whispering-mesa-52741.herokuapp.com/twitter/search/hate%20-love%20-RT%20filter:native_video/en/52.4722208,13.3349867,10km";
+    std::string hateurl = "https://whispering-mesa-52741.herokuapp.com/twitter/search/hate%20-love%20-RT%20filter:native_video/en/52.4722208,13.3349867,100km";
     
     // Now parse the JSON
     bool parsingSuccessful = result.open(url);
@@ -20,8 +20,10 @@ void ofApp::setup(){
         ofLogNotice("ofApp::setup")  << "Failed to parse JSON" << endl;
     }
     
-    myVideo.load("love2.mp4");
-    myVideoHate.load("hate1.mp4");
+    int whichone = ofRandom(1,7);
+    
+    myVideo.load("love"+std::to_string(whichone)+".mp4");
+    myVideoHate.load("hate"+ofToString(whichone)+".mp4");
     mySpeed = 1;
     mySpeedHate = 1;
     
@@ -48,6 +50,8 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    cout << ofGetOrientation() << endl;
+    if (ofGetOrientation() == 3) touchable = true;
     
     for (int i = 0; i<myTweet.size(); i++) {
         myTweet[i].update();
@@ -61,6 +65,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    if(touchable){
     // scene preparation
     ofSetColor(150);
     ofDrawLine(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight());
@@ -69,14 +74,18 @@ void ofApp::draw(){
     myVideo.draw(0,0,ofGetWidth()/2,(ofGetWidth()/2)/ratio);
     myVideoHate.draw(ofGetWidth()/2,0,ofGetWidth()/2,ofGetWidth()/2/ratio);
     
+    
     if (result.isMember("errors")){
         ofDrawBitmapString(result.getRawString(), 10, 14);
     }
     
+    mainFont.drawString("LOVE", (ofGetWidth()/2)/2-70, 100);
+    mainFont.drawString("HATE", ofGetWidth()-((ofGetWidth()-ofGetWidth()/2)/2)-70, 100);
+    
     for (int i = 0 ; i<myTweet.size(); i++) {
         myTweet[i].draw();
     }
-    
+    }
 }
 
 //--------------------------------------------------------------
@@ -96,14 +105,15 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::touchMoved(ofTouchEventArgs & touch){
-//    cout << touch.x << endl;
-//    if (touch.x < ofGetWidth()/2){
-//        mySpeed = ofMap(touch.x,0,ofGetWidth()/2,0,2);
-//        myVideo.setSpeed(mySpeed);
-//    }else{
-//        mySpeedHate = ofMap(touch.x,ofGetWidth()/2,ofGetWidth(),0,2);
-//        myVideoHate.setSpeed(mySpeedHate);
-//    }
+    if(touch.y > ofGetHeight()-100){
+        if (touch.x < ofGetWidth()/2){
+            mySpeed = ofMap(touch.x,0,ofGetWidth()/2,0,2);
+            myVideo.setSpeed(mySpeed);
+        }else{
+            mySpeedHate = ofMap(touch.x,ofGetWidth()/2,ofGetWidth(),0,2);
+            myVideoHate.setSpeed(mySpeedHate);
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -116,12 +126,12 @@ void ofApp::touchDoubleTap(ofTouchEventArgs & touch){
     if(touch.x < ofGetWidth()/2) myVideo.setPaused(!myVideo.isPaused());
     if(touch.x > ofGetWidth()/2) myVideoHate.setPaused(!myVideoHate.isPaused());
     
-    for (int i =0; i < myTweet.size(); i++) {
-        float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
-        if (distance < myTweet[i].dim) {
-            myTweet.erase(myTweet.begin()+i);
-        }
-    }
+//    for (int i =0; i < myTweet.size(); i++) {
+//        float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
+//        if (distance < myTweet[i].dim) {
+//            myTweet.erase(myTweet.begin()+i);
+//        }
+//    }
     
 }
 

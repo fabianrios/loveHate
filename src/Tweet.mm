@@ -21,22 +21,22 @@ void Tweet::setup(float _x, float _y, int _dim, bool _love, bool _notDying, stri
     notDying = _notDying;
     text = _text;
     date = _date;
-    textFont.load("OpenSansEmoji.ttf", 22);
+    textFont.load("OpenSansEmoji.ttf", 32);
     
     speedX = ofRandom(10);
     speedY = ofRandom(10);
     timer = 0;
-    color.set(ofRandom(255),ofRandom(255),ofRandom(255));
+    color.set(ofRandom(200),ofRandom(200),ofRandom(200));
 }
 
 void Tweet::update(){
-    int boundary_w = ofGetWidth()-(dim/2);
-    int start_boundary_w = (ofGetWidth()/2)+(dim/2);
+    int boundary_w = ofGetWidth()-(dim/2)+20;
+    int start_boundary_w = (ofGetWidth()/2)+(dim/2)+20;
     
     
     
         if (love){
-            boundary_w = (ofGetWidth()/2)-(dim/2);
+            boundary_w = (ofGetWidth()/2)-(dim/2)-20;
             start_boundary_w = (dim/2);
         }
     
@@ -62,8 +62,8 @@ void Tweet::update(){
         x+=speedX;
         y+=speedY;
     }else{
-        y += 60;
-        x += 60;
+        y += 30;
+        x += 30;
         float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
         float hateDistance = ofDist(ofGetWidth(),ofGetHeight(), x, y);
         
@@ -92,7 +92,11 @@ void Tweet::draw(){
             //cout << timer << endl;
             if(timer < 300){
                 float textSize = textFont.stringWidth(text);
-                textFont.drawString(text, x-(textSize/2), y-50);
+                if(love){
+                    textFont.drawString(text, x-(textSize/2), y-120);
+                }else{
+                    textFont.drawString(text, x-(textSize/2)-110, y-120);
+                }
             }
         }
     }

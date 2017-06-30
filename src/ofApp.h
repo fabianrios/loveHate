@@ -29,7 +29,7 @@ class ofApp : public ofxiOSApp {
         ofxJSONElement hate;
         ofVideoPlayer myVideo;
         ofVideoPlayer myVideoHate;
-        ofxTrueTypeFontUC tweetFont;
+        ofTrueTypeFont mainFont;
         float mySpeed;
         float mySpeedHate;
         vector <Tweet> myTweet;
