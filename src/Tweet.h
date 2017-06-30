@@ -16,7 +16,7 @@ class Tweet {
 public:
     
     
-    void setup(float _x, float _y, int _dim);
+    void setup(float _x, float _y, int _dim, bool _love);
     void update();
     void draw();
     
@@ -26,11 +26,12 @@ public:
     float speedY; // speed and direction
     float speedX;
     int dim;      // size
+    bool love;
+    
     ofColor color; // color using ofColor type
     
     
-    Tweet(); // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
-private: // place private functions or variables declarations here
+    Tweet();
     
-}; // don't forget the semicolon!!
+};
 #endif /* Tweet_h */

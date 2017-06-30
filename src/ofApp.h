@@ -4,7 +4,7 @@
 #include "ofxJSON.h"
 #include "ofxTrueTypeFontUC.h"
 #include "ofxJSON.h"
-#include <time.h> 
+#include "Tweet.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -32,6 +32,10 @@ class ofApp : public ofxiOSApp {
         ofVideoPlayer myVideo;
         ofVideoPlayer myVideoHate;
         float mySpeed;
+        float mySpeedHate;
+    
+        vector <Tweet> myTweet;
+        bool touchable;
 
 };
 

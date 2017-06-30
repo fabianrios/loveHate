@@ -25,11 +25,33 @@ void ofApp::setup(){
     myVideo.load("love1.mp4");
     myVideoHate.load("hate1.mp4");
     mySpeed = 1;
+    mySpeedHate = 1;
+    
+    const Json::Value& tweets = result["statuses"];
+    const Json::Value& hateTweets = hate["statuses"];
+    
+    for (int i = 0; i < tweets.size(); i++){
+        Tweet tempTweet;							// create the ball object
+        tempTweet.setup(0,0, 40, true);	// setup its initial state
+        myTweet.push_back(tempTweet);
+    }
+    
+    for (int i = 0; i < hateTweets.size(); i++){
+        Tweet tempTweet;
+        tempTweet.setup(0,0, 40, false);
+        myTweet.push_back(tempTweet);
+    }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    for (int i = 0; i<myTweet.size(); i++) {
+        myTweet[i].update();
+    }
+    
+    // video
     myVideo.update();
     myVideoHate.update();
 }
@@ -52,20 +74,29 @@ void ofApp::draw(){
     }
     else if (result.isObject()){
         ofSetColor(200,200,200);
-        const Json::Value& trends = result["statuses"];
         //cout << trends.size() << endl;
         
-        for (Json::ArrayIndex i = 0; i < trends.size(); ++i){
+        const Json::Value& trends = result["statuses"];
+        const Json::Value& haters = hate["statuses"];
+        
+        for (Json::ArrayIndex i = 0; i < trends.size(); i++){
             std::string date = trends[i]["created_at"].asString();
-            //std::string video = trends[i]["extended_entities"].asString();
             std::string message = trends[i]["text"].asString();
-            tweetFont.drawString(message, 10, 40*i);
-            //tweetFont.drawString(date, 10, 70*i+130);
-            
-            
+            tweetFont.drawString(message, 10, 80*i);
+            tweetFont.drawString(date, 10, (80*i)+30);
+        }
+        
+        for (Json::ArrayIndex i = 0; i < haters.size(); i++){
+            std::string date = haters[i]["created_at"].asString();
+            std::string message = haters[i]["text"].asString();
+            tweetFont.drawString(message, ofGetWidth()/2, 80*i);
+            tweetFont.drawString(date, ofGetWidth()/2, (80*i)+30);
         }
     }
     
+    for (int i = 0 ; i<myTweet.size(); i++) {
+        myTweet[i].draw();
+    }
     
 }
 
@@ -81,7 +112,11 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::touchMoved(ofTouchEventArgs & touch){
-
+    cout << touch.xspeed << endl;
+    mySpeed = ofMap(touch.x,0,ofGetWidth()/2,0,2);
+    mySpeedHate = ofMap(touch.x,ofGetWidth()/2,ofGetWidth(),0,2);
+    myVideo.setSpeed(mySpeed);
+    myVideoHate.setSpeed(mySpeedHate);
 }
 
 //--------------------------------------------------------------
