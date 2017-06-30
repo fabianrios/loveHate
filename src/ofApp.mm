@@ -107,16 +107,25 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs & touch){
-
+    for (int i =0; i < myTweet.size(); i++) {
+        float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
+        if (distance < myTweet[i].dim) {
+//            myTweet.erase(myTweet.begin()+i);
+              myTweet[i].die();
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::touchMoved(ofTouchEventArgs & touch){
-    cout << touch.xspeed << endl;
-    mySpeed = ofMap(touch.x,0,ofGetWidth()/2,0,2);
-    mySpeedHate = ofMap(touch.x,ofGetWidth()/2,ofGetWidth(),0,2);
-    myVideo.setSpeed(mySpeed);
-    myVideoHate.setSpeed(mySpeedHate);
+    cout << touch.x << endl;
+//    if (touch.x < ofGetWidth()/2){
+//        mySpeed = ofMap(touch.x,0,ofGetWidth()/2,0,2);
+//        myVideo.setSpeed(mySpeed);
+//    }else{
+//        mySpeedHate = ofMap(touch.x,ofGetWidth()/2,ofGetWidth(),0,2);
+//        myVideoHate.setSpeed(mySpeedHate);
+//    }
 }
 
 //--------------------------------------------------------------

@@ -56,7 +56,14 @@ void Tweet::update(){
 }
 
 void Tweet::draw(){
-    // set Color based on values for Red, Green and Blue
     ofSetColor(color);
     ofDrawCircle(x, y, dim);
+}
+
+void Tweet::die(){
+    // it should go to the center first
+    dim = ofGetHeight();
+    x = 0;
+    y = 0;
+    //this.erase(i);
 }
