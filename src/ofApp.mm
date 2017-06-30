@@ -20,7 +20,7 @@ void ofApp::setup(){
         ofLogNotice("ofApp::setup")  << "Failed to parse JSON" << endl;
     }
     
-    myVideo.load("love1.mp4");
+    myVideo.load("love2.mp4");
     myVideoHate.load("hate1.mp4");
     mySpeed = 1;
     mySpeedHate = 1;
@@ -32,7 +32,7 @@ void ofApp::setup(){
         std::string date = tweets[i]["created_at"].asString();
         std::string message = tweets[i]["text"].asString();
         Tweet tempTweet;							// create the ball object
-        tempTweet.setup(0,0, 40, true, false, message, date);	// setup its initial state
+        tempTweet.setup(0,0, 60, true, false, message, date);	// setup its initial state
         myTweet.push_back(tempTweet);
     }
     
@@ -40,7 +40,7 @@ void ofApp::setup(){
         std::string date = tweets[i]["created_at"].asString();
         std::string message = tweets[i]["text"].asString();
         Tweet tempTweet;
-        tempTweet.setup(0,0, 40, false, false, message, date);
+        tempTweet.setup(0,0, 60, false, false, message, date);
         myTweet.push_back(tempTweet);
     }
     
@@ -96,7 +96,7 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::touchMoved(ofTouchEventArgs & touch){
-    cout << touch.x << endl;
+//    cout << touch.x << endl;
 //    if (touch.x < ofGetWidth()/2){
 //        mySpeed = ofMap(touch.x,0,ofGetWidth()/2,0,2);
 //        myVideo.setSpeed(mySpeed);
