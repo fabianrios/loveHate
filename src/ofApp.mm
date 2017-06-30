@@ -13,8 +13,9 @@ void ofApp::setup(){
     std::string hateurl = "https://whispering-mesa-52741.herokuapp.com/twitter/search/hate%20-love%20-RT%20filter:native_video/en/52.4722208,13.3349867,100km";
     
     // Now parse the JSON
-    bool parsingSuccessful = result.open(url);
     bool parsingHate = hate.open(hateurl);
+    bool parsingSuccessful = result.open(url);
+    
     
     if (!parsingSuccessful || !parsingHate){
         ofLogNotice("ofApp::setup")  << "Failed to parse JSON" << endl;
@@ -39,11 +40,11 @@ void ofApp::setup(){
     }
     
     for (int i = 0; i < hateTweets.size(); i++){
-        std::string date = tweets[i]["created_at"].asString();
-        std::string message = tweets[i]["text"].asString();
-        Tweet tempTweet;
-        tempTweet.setup(0,0, 60, false, false, message, date);
-        myTweet.push_back(tempTweet);
+        std::string date = hateTweets[i]["created_at"].asString();
+        std::string message = hateTweets[i]["text"].asString();
+        Tweet hateTempTweet;
+        hateTempTweet.setup(0,0, 60, false, false, message, date);
+        myTweet.push_back(hateTempTweet);
     }
     
 }
