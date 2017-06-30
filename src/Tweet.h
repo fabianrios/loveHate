@@ -16,7 +16,7 @@ class Tweet {
 public:
     
     
-    void setup(float _x, float _y, int _dim, bool _love);
+    void setup(float _x, float _y, int _dim, bool _love, bool _notDying, string _text, string _date);
     void update();
     void draw();
     void die();
@@ -27,10 +27,13 @@ public:
     float speedY; // speed and direction
     float speedX;
     int dim;      // size
+    string text;
+    string date;
     bool love;
-    
+    bool notDying;
+    int timer;
+    ofTrueTypeFont textFont;
     ofColor color; // color using ofColor type
-    
     
     Tweet();
     

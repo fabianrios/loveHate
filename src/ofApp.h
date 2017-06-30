@@ -2,9 +2,8 @@
 
 #include "ofxiOS.h"
 #include "ofxJSON.h"
-#include "ofxTrueTypeFontUC.h"
-#include "ofxJSON.h"
 #include "Tweet.h"
+#include "ofxTrueTypeFontUC.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -26,14 +25,13 @@ class ofApp : public ofxiOSApp {
         void deviceOrientationChanged(int newOrientation);
     
         // variables and definitions
-        ofxTrueTypeFontUC tweetFont;
         ofxJSONElement result;
         ofxJSONElement hate;
         ofVideoPlayer myVideo;
         ofVideoPlayer myVideoHate;
+        ofxTrueTypeFontUC tweetFont;
         float mySpeed;
         float mySpeedHate;
-    
         vector <Tweet> myTweet;
         bool touchable;
 

@@ -1,7 +1,6 @@
 #include "ofApp.h"
 
 int main() {
-    
     //  here are the most commonly used iOS window settings.
     //------------------------------------------------------
     ofiOSWindowSettings settings;

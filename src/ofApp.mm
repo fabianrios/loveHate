@@ -7,8 +7,6 @@ void ofApp::setup(){
     ofSetBackgroundColor(40,40,40);
     tweetFont.loadFont("OpenSansEmoji.ttf", 16, true, true);
     
-    
-    
     // get data created twitter API
     std::string url = "https://whispering-mesa-52741.herokuapp.com/twitter/search/love%20-hate%20-RT%20filter:native_video/en/52.4722208,13.3349867,10km";
     
@@ -31,14 +29,18 @@ void ofApp::setup(){
     const Json::Value& hateTweets = hate["statuses"];
     
     for (int i = 0; i < tweets.size(); i++){
+        std::string date = tweets[i]["created_at"].asString();
+        std::string message = tweets[i]["text"].asString();
         Tweet tempTweet;							// create the ball object
-        tempTweet.setup(0,0, 40, true);	// setup its initial state
+        tempTweet.setup(0,0, 40, true, false, message, date);	// setup its initial state
         myTweet.push_back(tempTweet);
     }
     
     for (int i = 0; i < hateTweets.size(); i++){
+        std::string date = tweets[i]["created_at"].asString();
+        std::string message = tweets[i]["text"].asString();
         Tweet tempTweet;
-        tempTweet.setup(0,0, 40, false);
+        tempTweet.setup(0,0, 40, false, false, message, date);
         myTweet.push_back(tempTweet);
     }
     
@@ -58,8 +60,6 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    //tweetFont.drawStringAsShapes("<3 -<", 100, 100);
-    //tweetFont.drawString("🐯a😎	😏a", 100, 200);
     
     // scene preparation
     ofSetColor(150);
@@ -72,27 +72,27 @@ void ofApp::draw(){
     if (result.isMember("errors")){
         ofDrawBitmapString(result.getRawString(), 10, 14);
     }
-    else if (result.isObject()){
-        ofSetColor(200,200,200);
-        //cout << trends.size() << endl;
-        
-        const Json::Value& trends = result["statuses"];
-        const Json::Value& haters = hate["statuses"];
-        
-        for (Json::ArrayIndex i = 0; i < trends.size(); i++){
-            std::string date = trends[i]["created_at"].asString();
-            std::string message = trends[i]["text"].asString();
-            tweetFont.drawString(message, 10, 80*i);
-            tweetFont.drawString(date, 10, (80*i)+30);
-        }
-        
-        for (Json::ArrayIndex i = 0; i < haters.size(); i++){
-            std::string date = haters[i]["created_at"].asString();
-            std::string message = haters[i]["text"].asString();
-            tweetFont.drawString(message, ofGetWidth()/2, 80*i);
-            tweetFont.drawString(date, ofGetWidth()/2, (80*i)+30);
-        }
-    }
+//    else if (result.isObject()){
+//        ofSetColor(200,200,200);
+//        //cout << trends.size() << endl;
+//        
+//        const Json::Value& trends = result["statuses"];
+//        const Json::Value& haters = hate["statuses"];
+//        
+//        for (Json::ArrayIndex i = 0; i < trends.size(); i++){
+//            std::string date = trends[i]["created_at"].asString();
+//            std::string message = trends[i]["text"].asString();
+//            tweetFont.drawString(message, 10, 80*i);
+//            tweetFont.drawString(date, 10, (80*i)+30);
+//        }
+//        
+//        for (Json::ArrayIndex i = 0; i < haters.size(); i++){
+//            std::string date = haters[i]["created_at"].asString();
+//            std::string message = haters[i]["text"].asString();
+//            tweetFont.drawString(message, ofGetWidth()/2, 80*i);
+//            tweetFont.drawString(date, ofGetWidth()/2, (80*i)+30);
+//        }
+//    }
     
     for (int i = 0 ; i<myTweet.size(); i++) {
         myTweet[i].draw();
