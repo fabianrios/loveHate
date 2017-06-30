@@ -62,14 +62,17 @@ void Tweet::update(){
         x+=speedX;
         y+=speedY;
     }else{
-        y += 20;
-        x += 20;
+        y += 60;
+        x += 60;
         float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
-        if (distance < dim*2) {
+        float hateDistance = ofDist(ofGetWidth(),ofGetHeight(), x, y);
+        
+        if (distance < dim || hateDistance < dim) {
             if(timer < 300){
                 dim = 800;
                 timer+=1;
             }else{
+                timer = 0;
                 dim = 60;
                 notDying = false;
             }
@@ -84,11 +87,12 @@ void Tweet::draw(){
     ofSetColor(255);
     if(notDying){
         float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
-        if (distance < dim) {
+        float hateDistance = ofDist(ofGetWidth(),ofGetHeight(), x, y);
+        if (distance < dim || hateDistance < dim) {
             //cout << timer << endl;
             if(timer < 300){
                 float textSize = textFont.stringWidth(text);
-                textFont.drawString(text, x-(textSize/2), y);
+                textFont.drawString(text, x-(textSize/2), y-50);
             }
         }
     }

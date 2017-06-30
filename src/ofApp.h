@@ -34,6 +34,8 @@ class ofApp : public ofxiOSApp {
         float mySpeedHate;
         vector <Tweet> myTweet;
         bool touchable;
+    
+        bool presenting;
 
 };
 

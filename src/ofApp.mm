@@ -6,6 +6,7 @@ void ofApp::setup(){
     ofSetCircleResolution(80);
     ofSetBackgroundColor(40,40,40);
     tweetFont.loadFont("OpenSansEmoji.ttf", 16, true, true);
+    presenting = false;
     
     // get data created twitter API
     std::string url = "https://whispering-mesa-52741.herokuapp.com/twitter/search/love%20-hate%20-RT%20filter:native_video/en/52.4722208,13.3349867,10km";
@@ -86,12 +87,17 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs & touch){
-    for (int i =0; i < myTweet.size(); i++) {
-        float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
-        if (distance < myTweet[i].dim) {
-              myTweet[i].present();
+        for (int i =0; i < myTweet.size(); i++) {
+            float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
+            if(myTweet[i].notDying){
+                presenting = true;
+            }
+            if (distance < myTweet[i].dim) {
+                if(!presenting){
+                    myTweet[i].present();
+                }
+            }
         }
-    }
 }
 
 //--------------------------------------------------------------
