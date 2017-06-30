@@ -23,8 +23,8 @@ void Tweet::setup(float _x, float _y, int _dim, bool _love, bool _notDying, stri
     date = _date;
     textFont.load("OpenSansEmoji.ttf", 28);
     
-    speedX = ofRandom(20);
-    speedY = ofRandom(20);
+    speedX = ofRandom(10);
+    speedY = ofRandom(10);
     timer = 0;
     color.set(ofRandom(255),ofRandom(255),ofRandom(255));
 }
@@ -62,11 +62,11 @@ void Tweet::update(){
         x+=speedX;
         y+=speedY;
     }else{
-        y += 40;
-        x += 40;
+        y += 20;
+        x += 20;
         float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
         if (distance < dim) {
-            if(timer < 200){
+            if(timer < 300){
                 dim = 500;
                 timer+=1;
             }else{
@@ -86,7 +86,7 @@ void Tweet::draw(){
         float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
         if (distance < dim) {
             cout << timer << endl;
-            if(timer < 200){
+            if(timer < 300){
                 textFont.drawString(text, x, y);
             }
         }
