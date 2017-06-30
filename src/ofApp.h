@@ -35,6 +35,8 @@ class ofApp : public ofxiOSApp {
         vector <Tweet> myTweet;
         bool touchable;
     
+        ofSoundPlayer sound1, sound2;
+    
 
 };
 

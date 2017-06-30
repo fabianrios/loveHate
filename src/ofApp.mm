@@ -6,6 +6,8 @@ void ofApp::setup(){
     ofSetCircleResolution(80);
     ofSetBackgroundColor(40,40,40);
     mainFont.load("OpenSans-Bold.ttf", 64);
+    sound1.load("pop.mp3");
+    sound2.load("tat.mp3");
     
     // get data created twitter API
     std::string url = "https://whispering-mesa-52741.herokuapp.com/twitter/search/love%20-hate%20-RT%20filter:native_video/en/52.4722208,13.3349867,100km";
@@ -99,7 +101,7 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
     for (int i =0; i < myTweet.size(); i++) {
         float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
         if (distance < myTweet[i].dim) {
-              myTweet[i].present();
+            myTweet[i].present();
         }
     }
 }
@@ -124,8 +126,14 @@ void ofApp::touchUp(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::touchDoubleTap(ofTouchEventArgs & touch){
-    if(touch.x < ofGetWidth()/2) myVideo.setPaused(!myVideo.isPaused());
-    if(touch.x > ofGetWidth()/2) myVideoHate.setPaused(!myVideoHate.isPaused());
+    if(touch.x < ofGetWidth()/2){
+        myVideo.setPaused(!myVideo.isPaused());
+        sound1.play();
+    }
+    if(touch.x > ofGetWidth()/2){
+        myVideoHate.setPaused(!myVideoHate.isPaused());
+        sound2.play();
+    }
     
 //    for (int i =0; i < myTweet.size(); i++) {
 //        float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
