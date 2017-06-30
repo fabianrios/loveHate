@@ -35,7 +35,6 @@ class ofApp : public ofxiOSApp {
         vector <Tweet> myTweet;
         bool touchable;
     
-        bool presenting;
 
 };
 
