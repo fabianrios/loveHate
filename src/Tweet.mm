@@ -23,8 +23,8 @@ void Tweet::setup(float _x, float _y, int _dim, bool _love, bool _notDying, stri
     date = _date;
     textFont.load("OpenSansEmoji.ttf", 28);
     
-    speedX = ofRandom(-10,30);
-    speedY = ofRandom(-10,30);
+    speedX = ofRandom(20);
+    speedY = ofRandom(20);
     timer = 0;
     color.set(ofRandom(255),ofRandom(255),ofRandom(255));
 }
@@ -66,16 +66,12 @@ void Tweet::update(){
         x += 40;
         float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
         if (distance < dim) {
-            x = ofGetWidth()/2;
-            y = ofGetHeight();
-            speedY = 0;
-            speedX = 0;
-            cout << timer << endl;
-            ofSetColor(100, 100, 100);
             if(timer < 200){
                 dim = 500;
-                textFont.drawString("asdsdasdasdasd", 100, ofGetHeight()/2);
                 timer+=1;
+            }else{
+                dim = 40;
+                notDying = false;
             }
         }
     }
@@ -85,11 +81,20 @@ void Tweet::update(){
 void Tweet::draw(){
     ofSetColor(color);
     ofDrawCircle(x, y, dim);
+    ofSetColor(255);
+    if(notDying){
+        float distance = ofDist(ofGetWidth()/2,ofGetHeight(), x, y);
+        if (distance < dim) {
+            cout << timer << endl;
+            if(timer < 200){
+                textFont.drawString(text, x, y);
+            }
+        }
+    }
 }
 
-void Tweet::die(){
+void Tweet::present(){
     
     // stop the previous animation
     notDying = true;
-    //this.erase(i);
 }

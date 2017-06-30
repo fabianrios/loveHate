@@ -19,7 +19,7 @@ public:
     void setup(float _x, float _y, int _dim, bool _love, bool _notDying, string _text, string _date);
     void update();
     void draw();
-    void die();
+    void present();
     
     // variables
     float x;      // position

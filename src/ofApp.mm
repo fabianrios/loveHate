@@ -72,27 +72,6 @@ void ofApp::draw(){
     if (result.isMember("errors")){
         ofDrawBitmapString(result.getRawString(), 10, 14);
     }
-//    else if (result.isObject()){
-//        ofSetColor(200,200,200);
-//        //cout << trends.size() << endl;
-//        
-//        const Json::Value& trends = result["statuses"];
-//        const Json::Value& haters = hate["statuses"];
-//        
-//        for (Json::ArrayIndex i = 0; i < trends.size(); i++){
-//            std::string date = trends[i]["created_at"].asString();
-//            std::string message = trends[i]["text"].asString();
-//            tweetFont.drawString(message, 10, 80*i);
-//            tweetFont.drawString(date, 10, (80*i)+30);
-//        }
-//        
-//        for (Json::ArrayIndex i = 0; i < haters.size(); i++){
-//            std::string date = haters[i]["created_at"].asString();
-//            std::string message = haters[i]["text"].asString();
-//            tweetFont.drawString(message, ofGetWidth()/2, 80*i);
-//            tweetFont.drawString(date, ofGetWidth()/2, (80*i)+30);
-//        }
-//    }
     
     for (int i = 0 ; i<myTweet.size(); i++) {
         myTweet[i].draw();
@@ -110,8 +89,7 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
     for (int i =0; i < myTweet.size(); i++) {
         float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
         if (distance < myTweet[i].dim) {
-//            myTweet.erase(myTweet.begin()+i);
-              myTweet[i].die();
+              myTweet[i].present();
         }
     }
 }
@@ -137,6 +115,13 @@ void ofApp::touchUp(ofTouchEventArgs & touch){
 void ofApp::touchDoubleTap(ofTouchEventArgs & touch){
     if(touch.x < ofGetWidth()/2) myVideo.setPaused(!myVideo.isPaused());
     if(touch.x > ofGetWidth()/2) myVideoHate.setPaused(!myVideoHate.isPaused());
+    
+    for (int i =0; i < myTweet.size(); i++) {
+        float distance = ofDist(touch.x,touch.y, myTweet[i].x, myTweet[i].y);
+        if (distance < myTweet[i].dim) {
+            myTweet.erase(myTweet.begin()+i);
+        }
+    }
     
 }
 
