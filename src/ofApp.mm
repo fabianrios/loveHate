@@ -4,6 +4,7 @@
 void ofApp::setup(){
     ofSetOrientation(OF_ORIENTATION_90_LEFT); //Set iOS to Orientation
     ofSetCircleResolution(80);
+    //ofBlendMode(OF_BLENDMODE_ALPHA);    
     ofSetBackgroundColor(40,40,40);
     mainFont.load("OpenSans-Bold.ttf", 64);
     sound1.load("pop.mp3");

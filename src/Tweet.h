@@ -30,6 +30,7 @@ public:
     string text;
     string date;
     bool love;
+    int transparent;
     bool notDying;
     int timer;
     ofTrueTypeFont textFont;

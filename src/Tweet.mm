@@ -26,7 +26,8 @@ void Tweet::setup(float _x, float _y, int _dim, bool _love, bool _notDying, stri
     speedX = ofRandom(10);
     speedY = ofRandom(10);
     timer = 0;
-    color.set(ofRandom(200),ofRandom(200),ofRandom(200));
+    transparent = 255;
+    color.set(ofRandom(200),ofRandom(200),ofRandom(200),transparent);
 }
 
 void Tweet::update(){
@@ -72,6 +73,7 @@ void Tweet::update(){
                 dim = 800;
                 timer+=1;
             }else{
+                transparent = 255;
                 timer = 0;
                 dim = 60;
                 notDying = false;
@@ -95,7 +97,7 @@ void Tweet::draw(){
                 if(love){
                     textFont.drawString(text, x-(textSize/2), y-120);
                 }else{
-                    textFont.drawString(text, x-(textSize/2)-110, y-120);
+                    textFont.drawString(text, x-(textSize/2)-180, y-120);
                 }
             }
         }
